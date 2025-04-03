@@ -16,6 +16,10 @@ func (app *application) logError(r *http.Request, err error) {
 	app.logger.Error(err.Error(), "method", method, "uri", uri)
 }
 
+func (app *application) badRequestResponse(w http.ResponseWriter, r *http.Request, err error) {
+	app.errorResponse(w, r, http.StatusBadRequest, err.Error())
+}
+
 // The errorResponse() method is a generic helper for sending JSON-formatted error
 // messages to the client with a given status code. Note that we're using the any
 // type for the message parameter, rather than just a string type, as this gives us
