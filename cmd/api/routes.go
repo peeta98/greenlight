@@ -20,8 +20,8 @@ func (app *application) routes() http.Handler {
 	router.HandlerFunc(http.MethodGet, "/v1/healthcheck", app.healthcheckHandler)
 	router.HandlerFunc(http.MethodPost, "/v1/movies", app.createMovieHandler)
 	router.HandlerFunc(http.MethodGet, "/v1/movies/:id", app.showMovieHandler)
-	// Add the route for the PUT /v1/movies/:id endpoint.
 	router.HandlerFunc(http.MethodPut, "/v1/movies/:id", app.updateMovieHandler)
+	router.HandlerFunc(http.MethodDelete, "/v1/movies/:id", app.deleteMovieHandler)
 
 	// Wrap the router with the panic recovery middleware.
 	return app.recoverPanic(router)
