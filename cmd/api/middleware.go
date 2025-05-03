@@ -210,12 +210,26 @@ func (app *application) enableCORS(next http.Handler) http.Handler {
 		// Warn the client that the Origin Header may vary from client to client
 		w.Header().Add("Vary", "Origin")
 
+		// The response will be different depending on whether this header exists in the request.
+		w.Header().Add("Vary", "Access-Control-Request-Method")
+
 		origin := r.Header.Get("Origin")
 
 		if origin != "" {
 			for i := range app.config.cors.trustedOrigins {
 				if origin == app.config.cors.trustedOrigins[i] {
 					w.Header().Set("Access-Control-Allow-Origin", origin)
+
+					// Check if we are receiving a preflight request.
+					if r.Method == http.MethodOptions && r.Header.Get("Access-Control-Request-Method") != "" {
+						w.Header().Set("Access-Control-Allow-Headers", "OPTIONS, PUT, PATCH, DELETE")
+						w.Header().Set("Access-Control-Allow-Headers", "Authorization, Content-Type")
+
+						// Send a 200 response to the preflight request, signaling the client to send the real request.
+						w.WriteHeader(http.StatusOK)
+						return
+					}
+
 					break
 				}
 			}
