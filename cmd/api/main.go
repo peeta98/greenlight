@@ -5,9 +5,11 @@ import (
 	"database/sql"
 	"expvar"
 	"flag"
+	"fmt"
 	_ "github.com/lib/pq"
 	"github.com/peeta98/greenlight/internal/data"
 	"github.com/peeta98/greenlight/internal/mailer"
+	"github.com/peeta98/greenlight/internal/vcs"
 	"log/slog"
 	"os"
 	"runtime"
@@ -16,7 +18,9 @@ import (
 	"time"
 )
 
-const version = "1.0.0"
+var (
+	version = vcs.Version()
+)
 
 // Add a db struct field to hold the configuration settings to our database connection
 // pool. For now this only holds the DSN, which we will read in from a command-line flag.
@@ -81,7 +85,13 @@ func main() {
 		return nil
 	})
 
+	displayVersion := flag.Bool("version", false, "Display version and exit")
+
 	flag.Parse()
+
+	if *displayVersion {
+		fmt.Printf("Version:\t%s\n", version)
+	}
 
 	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
 
