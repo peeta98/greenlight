@@ -1,6 +1,6 @@
 # 🎬 Greenlight API
 
-This project implements **Greenlight**, a JSON-based REST API for managing and retrieving movie data. It's built from the ground up in Go, following the full workflow and best practices outlined in [_Let's Go Further_](https://lets-go.alexedwards.net/) by Alex Edwards.
+This project implements **Greenlight**, a JSON-based REST API for managing and retrieving movie data. It's built from the ground up in Go, following the full workflow and best practices outlined in [_Let's Go Further_](https://lets-go-further.alexedwards.net/) by Alex Edwards.
 
 The API is designed for robustness, maintainability, and production-readiness — with a strong focus on layered architecture, performance, security, and clean design.
 
