@@ -22,8 +22,6 @@ var (
 	version = vcs.Version()
 )
 
-// Add a db struct field to hold the configuration settings to our database connection
-// pool. For now this only holds the DSN, which we will read in from a command-line flag.
 type config struct {
 	port int
 	env  string
@@ -111,8 +109,6 @@ func main() {
 		os.Exit(1)
 	}
 
-	// Publish a new "version" variable in the expvar handler containing our application
-	// version number (currently the constant "1.0.0").
 	expvar.NewString("version").Set(version)
 
 	// Publish the number of active goroutines.
