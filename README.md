@@ -80,7 +80,7 @@ This project applies the complete curriculum from _Let's Go Further_, covering o
 
 ---
 
-## 🧪 Local Development
+## 🧪 Contributing
 
 ```bash
 # Clone the project
